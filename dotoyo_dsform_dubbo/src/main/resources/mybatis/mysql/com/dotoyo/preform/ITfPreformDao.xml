@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dotoyo.dsform.dao.inter.ITfPreformDao">
+	<!--TfPreform>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
+	<cache type="${caseImpl}" eviction="LRU" flushInterval="60000" size="1024" readOnly="true"></cache>
+	<select id="query" parameterType="hashMap" resultType="hashMap"
+		resultSetType="FORWARD_ONLY" 
+		statementType="PREPARED" timeout="20000" fetchSize="50">
+		
+		SELECT * FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+		<trim prefix="WHERE" prefixOverrides="AND ">
+		<if test="id!=null and id!=''">AND ID=#{id}</if>
+		<if test="name!=null and name!=''">AND NAME=#{name}</if>
+		<if test="note!=null and note!=''">AND NOTE=#{note}</if>
+		<if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if>
+		<if test="package!=null and package!=''">AND PACKAGE=#{package}</if>
+		<if test="method!=null and method!=''">AND METHOD=#{method}</if>
+		<if test="title!=null and title!=''">AND TITLE=#{title}</if>
+		<if test="status!=null and status!=''">AND STATUS=#{status}</if>
+		<if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if>
+		<if test="file!=null and file!=''">AND FILE=#{file}</if>
+		<if test="html!=null and html!=''">AND HTML=#{html}</if>
+		</trim>
+		<if test="SORT != null and SORT !='' ">
+			ORDER BY ${SORT} ${ORDER}  
+        </if>
+		
+		LIMIT  ${START},${SIZE};
+
+	</select>
+	
+	<select id="queryCount" parameterType="hashMap" resultType="long"
+		resultSetType="FORWARD_ONLY"
+		statementType="PREPARED" timeout="20000">
+		SELECT COUNT(1) FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+		<trim prefix="WHERE" prefixOverrides="AND ">
+		<if test="id!=null and id!=''">AND ID=#{id}</if>
+		<if test="name!=null and name!=''">AND NAME=#{name}</if>
+		<if test="note!=null and note!=''">AND NOTE=#{note}</if>
+		<if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if>
+		<if test="package!=null and package!=''">AND PACKAGE=#{package}</if>
+		<if test="method!=null and method!=''">AND METHOD=#{method}</if>
+		<if test="title!=null and title!=''">AND TITLE=#{title}</if>
+		<if test="status!=null and status!=''">AND STATUS=#{status}</if>
+		<if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if>
+		<if test="file!=null and file!=''">AND FILE=#{file}</if>
+		<if test="html!=null and html!=''">AND HTML=#{html}</if>
+		</trim>
+	</select>
+	<select id="selectList" parameterType="hashMap" resultMap="baseResultModel">
+		
+		SELECT * FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+		<trim prefix="WHERE" prefixOverrides="AND ">
+		<if test="id!=null and id!=''">AND ID=#{id}</if>
+		<if test="name!=null and name!=''">AND NAME=#{name}</if>
+		<if test="note!=null and note!=''">AND NOTE=#{note}</if>
+		<if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if>
+		<if test="package!=null and package!=''">AND PACKAGE=#{package}</if>
+		<if test="method!=null and method!=''">AND METHOD=#{method}</if>
+		<if test="title!=null and title!=''">AND TITLE=#{title}</if>
+		<if test="status!=null and status!=''">AND STATUS=#{status}</if>
+		<if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if>
+		<if test="file!=null and file!=''">AND FILE=#{file}</if>
+		<if test="html!=null and html!=''">AND HTML=#{html}</if>
+		</trim>
+		<if test="SORT != null and SORT !='' ">
+			ORDER BY ${SORT} ${ORDER}  
+        </if>
+		LIMIT  ${START},${SIZE};
+	</select>
+	
+	<select id="selectListAll" parameterType="hashMap" resultMap="baseResultModel">
+		SELECT * FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+		<trim prefix="WHERE" prefixOverrides="AND ">
+		<if test="id!=null and id!=''">AND ID=#{id}</if>
+		<if test="name!=null and name!=''">AND NAME=#{name}</if>
+		<if test="note!=null and note!=''">AND NOTE=#{note}</if>
+		<if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if>
+		<if test="package!=null and package!=''">AND PACKAGE=#{package}</if>
+		<if test="method!=null and method!=''">AND METHOD=#{method}</if>
+		<if test="title!=null and title!=''">AND TITLE=#{title}</if>
+		<if test="status!=null and status!=''">AND STATUS=#{status}</if>
+		<if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if>
+		<if test="file!=null and file!=''">AND FILE=#{file}</if>
+		<if test="html!=null and html!=''">AND HTML=#{html}</if>
+		</trim>
+		<if test="sort != null and sort !='' ">
+			ORDER BY ${sort} ${order}  
+        </if>
+        LIMIT 0,10;
+	</select>
+	
+	<select id="selectAllIds" parameterType="hashMap" resultType="String">
+		SELECT ID FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+		<trim prefix="WHERE" prefixOverrides="AND ">
+			<if test="id!=null and id!=''">AND ID=#{id}</if>
+			<if test="name!=null and name!=''">AND NAME=#{name}</if>
+			<if test="note!=null and note!=''">AND NOTE=#{note}</if>
+			<if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if>
+			<if test="package!=null and package!=''">AND PACKAGE=#{package}</if>
+			<if test="method!=null and method!=''">AND METHOD=#{method}</if>
+			<if test="title!=null and title!=''">AND TITLE=#{title}</if>
+			<if test="status!=null and status!=''">AND STATUS=#{status}</if>
+			<if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if>
+			<if test="file!=null and file!=''">AND FILE=#{file}</if>
+			<if test="html!=null and html!=''">AND HTML=#{html}</if>
+		</trim>
+		<if test="sort != null and sort !='' ">
+			ORDER BY ${sort} ${order}  
+        </if>
+	</select>
+	
+	<select id="selectIds4Limit" parameterType="hashMap" resultType="String">
+		SELECT ID FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+		<trim prefix="WHERE" prefixOverrides="AND ">
+			<if test="id!=null and id!=''">AND ID=#{id}</if>
+			<if test="name!=null and name!=''">AND NAME=#{name}</if>
+			<if test="note!=null and note!=''">AND NOTE=#{note}</if>
+			<if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if>
+			<if test="package!=null and package!=''">AND PACKAGE=#{package}</if>
+			<if test="method!=null and method!=''">AND METHOD=#{method}</if>
+			<if test="title!=null and title!=''">AND TITLE=#{title}</if>
+			<if test="status!=null and status!=''">AND STATUS=#{status}</if>
+			<if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if>
+			<if test="file!=null and file!=''">AND FILE=#{file}</if>
+			<if test="html!=null and html!=''">AND HTML=#{html}</if>
+			<if test="rebuildVersion!=null and rebuildVersion!=''">AND REBUILD_VERSION!=#{rebuildVersion}</if>
+		</trim>
+		or REBUILD_VERSION is null
+		<if test="sort != null and sort !='' ">
+			ORDER BY ${sort} ${order}  
+        </if>
+        LIMIT 0,${limit};
+	</select>
+	
+	<select id="countUnrebuilde" parameterType="hashMap" resultType="long"
+		resultSetType="FORWARD_ONLY"
+		statementType="PREPARED" timeout="20000">
+		SELECT COUNT(1) FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if>
+			where REBUILD_VERSION!=#{rebuildVersion} or REBUILD_VERSION is null
+	</select>
+	
+	<resultMap id="baseResultModel" type="com.dotoyo.dsform.model.TfPreformModel">
+		<result column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="NOTE" property="note"/>
+		<result column="THIS_TYPE" property="thisType"/>
+		<result column="PACKAGE" property="package"/>
+		<result column="METHOD" property="method"/>
+		<result column="TITLE" property="title"/>
+		<result column="STATUS" property="status"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="FILE" property="file"/>
+		<result column="HTML" property="html"/>
+		<result column="MDF_HTML" property="mdfHtml"/>
+		<result column="AUTO_MODEL_ID" property="autoModelId"/>
+		<result column="MOBILE_MODEL_ID" property="mobileModelId"/>
+		<result column="PRINT_DIRECTION" property="printDirection"/>
+		<result column="LEFT_MARGIN" property="leftMargin"/>
+		<result column="TOP_MARGIN" property="topMargin"/>
+		<result column="SN_TYPE" property="snType"/>
+		<result column="SN_STR_FORMAT" property="snStrFormat"/>
+		<result column="SN_INPUT_ID" property="snInputId"/>
+		<result column="REBUILD_VERSION" property="rebuildVersion"/>
+		<result column="VIRTUAL_PATH" property="virtualPath"/>
+		<result column="TOTAL_OF_SUM_TITLE" property="totalOfSumTitle"/>
+		<result column="TOTAL_OF_SUM_SUB_SEC" property="totalOfSumSubSec"/>
+		<result column="ITEM_NO" property="itemNo"/>
+		<result column="EXAMPLE_ID" property="exampleId"/>
+		<result column="FILL_INSTR_ID" property="fillInstrId"/>
+	</resultMap>
+	<resultMap id="baseResultMap" type="java.util.HashMap">
+		<result column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="NOTE" property="note"/>
+		<result column="THIS_TYPE" property="thisType"/>
+		<result column="PACKAGE" property="package"/>
+		<result column="METHOD" property="method"/>
+		<result column="TITLE" property="title"/>
+		<result column="STATUS" property="status"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="FILE" property="file"/>
+		<result column="HTML" property="html"/>
+		<result column="AUTO_MODEL_ID" property="autoModelId"/>
+		<result column="MOBILE_MODEL_ID" property="mobileModelId"/>
+		<result column="PRINT_DIRECTION" property="printDirection"/>
+		<result column="LEFT_MARGIN" property="leftMargin"/>
+		<result column="TOP_MARGIN" property="topMargin"/>
+		<result column="SN_TYPE" property="snType"/>
+		<result column="SN_STR_FORMAT" property="snStrFormat"/>
+		<result column="SN_INPUT_ID" property="snInputId"/>
+		<result column="REBUILD_VERSION" property="rebuildVersion"/>
+		<result column="VIRTUAL_PATH" property="virtualPath"/>
+		<result column="TOTAL_OF_SUM_TITLE" property="totalOfSumTitle" />
+		<result column="TOTAL_OF_SUM_SUB_SEC" property="totalOfSumSubSec"/>
+		<result column="ITEM_NO" property="itemNo"/>
+		<result column="EXAMPLE_ID" property="exampleId"/>
+		<result column="FILL_INSTR_ID" property="fillInstrId"/>
+	</resultMap>
+	<insert id="insert" parameterType="com.dotoyo.dsform.model.TfPreformModel" >
+		insert into <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">ID,</if><if test="name !=null and name !='' ">NAME,</if><if test="note !=null and note !='' ">NOTE,</if><if test="thisType !=null and thisType !='' ">THIS_TYPE,</if><if test="package !=null and package !='' ">PACKAGE,</if><if test="method !=null and method !='' ">METHOD,</if><if test="title !=null and title !='' ">TITLE,</if><if test="status !=null and status !='' ">STATUS,</if><if test="createTime !=null and createTime !='' ">CREATE_TIME,</if><if test="file !=null and file !='' ">FILE,</if><if test="html !=null and html !='' ">HTML,</if><if test="mdfHtml !=null and mdfHtml !='' ">MDF_HTML,</if><if test="autoModelId !=null and autoModelId !='' ">AUTO_MODEL_ID,</if><if test="mobileModelId !=null and mobileModelId !='' ">MOBILE_MODEL_ID,</if><if test="printDirection !=null and printDirection !='' ">PRINT_DIRECTION,</if><if test="topMargin !=null and topMargin !='' ">TOP_MARGIN,</if><if test="leftMargin !=null and leftMargin !='' ">LEFT_MARGIN,</if><if test="formType !=null and formType !='' ">FORM_TYPE,</if><if test="orgType !=null and orgType !='' ">ORG_TYPE,</if><if test="rootId !=null and rootId !='' ">ROOT_ID,</if><if test="cityId !=null and cityId !='' ">CITY_ID,</if> <if test="entId !=null and entId !='' ">ENT_ID,</if><if test="orgId !=null and orgId !='' ">ORG_ID,</if><if test="recreateDirecDate !=null and recreateDirecDate !='' ">RECREATE_DIREC_DATE,</if><if test="virtualPath !=null and virtualPath !='' ">VIRTUAL_PATH,</if><if test="snType !=null and snType !='' ">SN_TYPE,</if><if test="snStrFormat !=null and snStrFormat !='' ">SN_STR_FORMAT,</if><if test="snInputId !=null and snInputId !='' ">SN_INPUT_ID,</if> <if test="totalOfSumTitle !=null and totalOfSumTitle !='' ">TOTAL_OF_SUM_TITLE,</if> <if test="totalOfSumSubSec !=null and totalOfSumSubSec !='' ">TOTAL_OF_SUM_SUB_SEC,</if>  <if test="itemNo !=null and itemNo !='' ">ITEM_NO,</if> <if test="exampleId !=null and exampleId !='' ">EXAMPLE_ID,</if> <if test="fillInstrId !=null and fillInstrId !='' ">FILL_INSTR_ID,</if> </trim>)values (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">#{id},</if><if test="name !=null and name !='' ">#{name},</if><if test="note !=null and note !='' ">#{note},</if><if test="thisType !=null and thisType !='' ">#{thisType},</if><if test="package !=null and package !='' ">#{package},</if><if test="method !=null and method !='' ">#{method},</if><if test="title !=null and title !='' ">#{title},</if><if test="status !=null and status !='' ">#{status},</if><if test="createTime !=null and createTime !='' ">#{createTime},</if><if test="file !=null and file !='' ">#{file},</if><if test="html !=null and html !='' ">#{html},</if><if test="mdfHtml !=null and mdfHtml !='' ">#{mdfHtml},</if><if test="autoModelId !=null and autoModelId !='' ">#{autoModelId},</if><if test="mobileModelId !=null and mobileModelId !='' ">#{mobileModelId},</if><if test="printDirection !=null and printDirection !='' ">#{printDirection},</if><if test="topMargin !=null and topMargin !='' ">#{topMargin},</if><if test="leftMargin !=null and leftMargin !='' ">#{leftMargin},</if><if test="formType !=null and formType !='' ">#{formType},</if><if test="orgType !=null and orgType !='' ">#{orgType},</if><if test="rootId !=null and rootId !='' ">#{rootId},</if><if test="cityId !=null and cityId !='' ">#{cityId},</if><if test="entId !=null and entId !='' ">#{entId},</if><if test="orgId !=null and orgId !='' ">#{orgId},</if><if test="recreateDirecDate !=null and recreateDirecDate !='' ">#{recreateDirecDate},</if><if test="virtualPath !=null and virtualPath !='' ">#{virtualPath},</if><if test="snType !=null and snType !='' ">#{snType},</if><if test="snStrFormat !=null and snStrFormat !='' ">#{snStrFormat},</if><if test="snInputId !=null and snInputId !='' ">#{snInputId},</if><if test="totalOfSumTitle !=null and totalOfSumTitle !='' ">#{totalOfSumTitle},</if><if test="totalOfSumSubSec !=null and totalOfSumSubSec !='' ">#{totalOfSumSubSec},</if><if test="itemNo!=null and itemNo!='' ">#{itemNo},</if><if test="exampleId!=null and exampleId!='' ">#{exampleId},</if><if test="fillInstrId!=null and fillInstrId!='' ">#{fillInstrId},</if></trim>)
+	</insert>
+	<insert id="insert4Map" parameterType="hashMap" >
+		insert into <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">ID,</if><if test="name !=null and name !='' ">NAME,</if><if test="note !=null and note !='' ">NOTE,</if><if test="thisType !=null and thisType !='' ">THIS_TYPE,</if><if test="package !=null and package !='' ">PACKAGE,</if><if test="method !=null and method !='' ">METHOD,</if><if test="title !=null and title !='' ">TITLE,</if><if test="status !=null and status !='' ">STATUS,</if><if test="createTime !=null and createTime !='' ">CREATE_TIME,</if><if test="file !=null and file !='' ">FILE,</if><if test="html !=null and html !='' ">HTML,</if></trim>)values (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">#{id},</if><if test="name !=null and name !='' ">#{name},</if><if test="note !=null and note !='' ">#{note},</if><if test="thisType !=null and thisType !='' ">#{thisType},</if><if test="package !=null and package !='' ">#{package},</if><if test="method !=null and method !='' ">#{method},</if><if test="title !=null and title !='' ">#{title},</if><if test="status !=null and status !='' ">#{status},</if><if test="createTime !=null and createTime !='' ">#{createTime},</if><if test="file !=null and file !='' ">#{file},</if><if test="html !=null and html !='' ">#{html},</if></trim>)
+	</insert>
+	<delete id="deleteByPrimaryKey" parameterType="com.dotoyo.dsform.model.TfPreformModel" >
+		delete from <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> where ID=#{id}
+	</delete>
+	<update id="updateByPrimaryKey" parameterType="com.dotoyo.dsform.model.TfPreformModel" >
+		update <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> set <trim suffix="" suffixOverrides=","><if test="name !=null and name !='' ">NAME=#{name},</if><if test="note !=null and note !='' ">NOTE=#{note},</if><if test="thisType !=null and thisType !='' ">THIS_TYPE=#{thisType},</if><if test="package !=null and package !='' ">PACKAGE=#{package},</if><if test="method !=null and method !='' ">METHOD=#{method},</if><if test="title !=null and title !='' ">TITLE=#{title},</if><if test="status !=null and status !='' ">STATUS=#{status},</if><if test="createTime !=null and createTime !='' ">CREATE_TIME=#{createTime},</if><if test="file !=null and file !='' ">FILE=#{file},</if><if test="html !=null and html !='' ">HTML=#{html},</if><if test="autoModelId !=null and autoModelId !='' ">AUTO_MODEL_ID=#{autoModelId},</if><if test="mobileModelId !=null and mobileModelId !='' ">MOBILE_MODEL_ID=#{mobileModelId},</if><if test="mdfHtml !=null and mdfHtml !='' ">MDF_HTML=#{mdfHtml},</if>   <if test="topMargin !=null and topMargin !='' ">TOP_MARGIN=#{topMargin},</if> <if test="leftMargin !=null and leftMargin !='' ">LEFT_MARGIN=#{leftMargin},</if> <if test="rebuildVersion !=null and rebuildVersion !='' ">REBUILD_VERSION=#{rebuildVersion},</if></trim> where ID=#{id}
+	</update>
+	<update id="updateByPrimaryKey4Map" parameterType="hashMap" >
+		update <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> set <trim suffix="" suffixOverrides=","><if test="name !=null and name !='' ">NAME=#{name},</if><if test="note !=null and note !='' ">NOTE=#{note},</if><if test="thisType !=null and thisType !='' ">THIS_TYPE=#{thisType},</if><if test="package !=null and package !='' ">PACKAGE=#{package},</if><if test="method !=null and method !='' ">METHOD=#{method},</if><if test="title !=null and title !='' ">TITLE=#{title},</if><if test="status !=null and status !='' ">STATUS=#{status},</if><if test="createTime !=null and createTime !='' ">CREATE_TIME=#{createTime},</if><if test="file !=null and file !='' ">FILE=#{file},</if><if test="html !=null and html !='' ">HTML=#{html},</if> </trim> where ID=#{id}
+	</update>
+	<select id="selectList4Map" resultMap="baseResultMap" parameterType="hashMap" >
+		select ID,NAME,NOTE,THIS_TYPE,PACKAGE,METHOD,TITLE,STATUS,CREATE_TIME,FILE,HTML from <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> <trim prefix="WHERE" prefixOverrides="AND "> <if test="id!=null and id!=''">AND ID=#{id}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="note!=null and note!=''">AND NOTE=#{note}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if><if test="package!=null and package!=''">AND PACKAGE=#{package}</if><if test="method!=null and method!=''">AND METHOD=#{method}</if><if test="title!=null and title!=''">AND TITLE=#{title}</if><if test="status!=null and status!=''">AND STATUS=#{status}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="file!=null and file!=''">AND FILE=#{file}</if><if test="html!=null and html!=''">AND HTML=#{html}</if></trim>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="baseResultModel" parameterType="com.dotoyo.dsform.model.TfPreformModel" >
+		select ID,NAME,NOTE,THIS_TYPE,PACKAGE,METHOD,TITLE,STATUS,CREATE_TIME,FILE,HTML,MDF_HTML,AUTO_MODEL_ID,MOBILE_MODEL_ID,PRINT_DIRECTION,TOP_MARGIN,LEFT_MARGIN,SN_TYPE,SN_STR_FORMAT,SN_INPUT_ID,REBUILD_VERSION,VIRTUAL_PATH,TOTAL_OF_SUM_TITLE,TOTAL_OF_SUM_SUB_SEC,EXAMPLE_ID,FILL_INSTR_ID ,ITEM_NO from <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> where ID=#{id}
+	</select>
+	
+	<insert id="insertPreformElm" parameterType="hashMap" >
+		insert into <if test="tableSubName !=null and tableSubName !='' ">t_f_preform${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_preform</if> (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">ID,</if><if test="widgeId !=null and widgeId !='' ">widge_Id,</if><if test="widgeName !=null and widgeName !='' ">widge_Name,</if><if test="widgeType !=null and widgeType !='' ">widge_Type,</if><if test="style !=null and style !='' ">style,</if><if test="preformId !=null and preformId !='' ">preform_ID,</if><if test="indexRow !=null and indexRow !='' ">index_Row,</if><if test="status !=null and status !='' ">status,</if><if test="createTime !=null and createTime !='' ">create_Time,</if><if test="width !=null and width !='' ">width,</if><if test="isRequired !=null and isRequired !='' ">IS_REQUIRED,</if><if test="length !=null and length !='' ">LENGTH,</if><if test="height !=null and height !='' ">height,</if></trim>)values (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">#{id},</if><if test="widgeId !=null and widgeId !='' ">#{widgeId},</if><if test="widgeName !=null and widgeName !='' ">#{widgeName},</if><if test="widgeType !=null and widgeType !='' ">#{widgeType},</if><if test="style !=null and style !='' ">#{style},</if><if test="preformId !=null and preformId !='' ">#{preformId},</if><if test="indexRow !=null and indexRow !='' ">#{indexRow},</if><if test="status !=null and status !='' ">#{status},</if><if test="createTime !=null and createTime !='' ">#{createTime},</if><if test="width !=null and width !='' ">#{width},</if><if test="isRequired !=null and isRequired !='' ">#{isRequired},</if><if test="length !=null and length !='' ">#{length},</if><if test="height !=null and height !='' ">#{height},</if></trim>)
+	</insert>
+	
+	<!--TfPreform<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
+</mapper>

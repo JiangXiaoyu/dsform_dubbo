@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ 		<context:annotation-config />
+	   
+	<import resource="dubbo-provider.xml"></import>
+	<!--  -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:springs/spring.properties" />
+	</bean>
+	
+	<bean id="dataSource"
+		class="com.dotoyo.dsform.datasource.SpringDataSourceBean">
+		<property name="code" value="${code}" />
+	</bean>
+
+	<bean id="dataSource1"
+		class="com.dotoyo.dsform.datasource.SpringDataSource4CenterBean">
+		<property name="code" value="${code1}" />
+	</bean>	
+	
+	<bean id="sqlSessionFactory1" class="com.dotoyo.dsform.datasource.MybatisDao4CenterBean">
+		<property name="dataSource" ref="dataSource1" />
+		<property  name="mapperLocations"  value="${code1}"/>
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="com.dotoyo.dsform.datasource.MybatisDaoBean">
+		<property name="dataSource" ref="dataSource" />
+		<property  name="mapperLocations"  value="${code}"/>		
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+	</bean>
+	
+	<import resource="spring-mongo.xml"/>    <!-- --> 
+	
+</beans>

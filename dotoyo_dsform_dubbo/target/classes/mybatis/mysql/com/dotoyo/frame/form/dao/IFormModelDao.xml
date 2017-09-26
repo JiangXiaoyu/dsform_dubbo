@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dotoyo.dsform.dao.inter.IFormModelDao">
+<cache type="${caseImpl}" eviction="LRU" flushInterval="60000" size="1024" readOnly="true"></cache>
+<resultMap id="FormElmParModel4Model" type="com.dotoyo.ims.dsform.allin.FormElmParModel">
+		<result column="ID" property="id"/>
+		<result column="CODE" property="code"/>
+		<result column="NAME" property="name"/>
+		<result column="NOTE" property="note"/>
+		<result column="THIS_TYPE" property="thisType"/>
+		<result column="THIS_VALUE" property="thisValue"/>
+		<result column="TEXT" property="text"/>
+		<result column="STATUS" property="status"/>
+		<result column="CREATE_TIME" property="createTime"/>
+	</resultMap>
+<select id="queryByPage" parameterType="hashMap" resultType="hashMap"
+		useCache="true" resultSetType="FORWARD_ONLY" flushCache="false"
+		statementType="PREPARED" timeout="20000" fetchSize="50">
+		
+		SELECT * FROM T_F_FORM
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="status !=null and status !='' ">
+				AND STATUS = #{status}
+			</if>
+			<if test="ID !=null and ID !='' ">
+				AND ID = #{ID}
+			</if>
+		</trim>
+
+
+<if test="SORT != null and SORT !='' ">
+			ORDER BY ${SORT} ${ORDER}  
+        </if>
+
+
+		LIMIT  ${START},${SIZE};
+
+
+
+	</select>
+	<select id="queryRowCount" parameterType="hashMap" resultType="long"
+		useCache="false" resultSetType="FORWARD_ONLY" flushCache="false"
+		statementType="PREPARED" timeout="20000">
+		SELECT COUNT(1) FROM T_F_FORM
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="status !=null and status !='' ">
+				AND STATUS = #{status}
+			</if>
+			<if test="ID !=null and ID !='' ">
+				AND ID = #{ID}
+			</if>
+		</trim>
+		
+	</select>
+
+	<select id="queryFormByCode" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000" fetchSize="50">
+		SELECT * FROM T_F_FORM WHERE STATUS=1 AND CODE=#{code}
+	</select>
+	
+	<select id="queryFormElementByReportId" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		SELECT * FROM
+		T_F_FORM_ELM WHERE STATUS=1 AND FORM_ID=#{reportId} ORDER BY
+		TAB_ID ASC
+	</select>
+	
+	<select id="queryFormElementParamByElementId" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		SELECT * FROM
+		T_F_FORM_ELM_PAR WHERE STATUS=1 AND CODE=#{elementId}
+	</select>
+
+	<select id="queryFormElementParam" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		SELECT * FROM
+		T_F_FORM_ELM_PAR WHERE STATUS=1 AND CODE=#{code} AND THIS_TYPE=#{thisType}
+	</select>
+	
+	<select id="queryFormElement" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		SELECT * FROM
+		T_F_FORM_ELM WHERE STATUS=1 AND FORM_ID=#{formId} AND CODE=#{code}
+	</select>
+	
+	<select id="queryFormElementByFormId" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		SELECT * FROM
+		T_F_FORM_ELM WHERE STATUS=1 AND FORM_ID=#{formId}
+	</select>
+    <resultMap type="java.util.HashMap" id="queryResult">
+        <result property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="code" column="CODE" />
+        <result property="width" column="WIDTH" />
+        <result property="align" column="ALIGN" />
+    </resultMap>
+    <select id="queryFormElementById" parameterType="String" resultMap="queryResult"
+            resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+            flushCache="false" statementType="PREPARED" timeout="20000">
+        SELECT * FROM
+        T_F_FORM_ELM WHERE STATUS=1 AND id=#{id}
+    </select>
+    
+
+    <select id="queryFormElePar" parameterType="hashMap"
+            resultMap="FormElmParModel4Model" useCache="true" resultSetType="FORWARD_ONLY"
+            flushCache="false" statementType="PREPARED" timeout="20000">
+        select par.* 
+		from t_f_form f
+		left join t_f_form_elm elm
+		on f.id = elm.form_id
+		left join t_f_form_elm_par par
+		on par.code = elm.id
+		where f.code=#{formcode} and elm.code=#{curcode}
+    </select>
+    
+    <select id="queryFormElementByFormCode" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		select te.* 
+		from t_f_form t
+		left join t_f_form_elm te
+		on t.id = te.form_id
+		where t.code=#{0}
+	</select>
+	
+	<select id="queryFormEleParByEleIdAndType" parameterType="String"
+		resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+		flushCache="false" statementType="PREPARED" timeout="20000">
+		select * 
+		from t_f_form_elm_par 
+		where status=1 and code=#{0} and this_type=#{1}
+	</select>
+	
+</mapper>

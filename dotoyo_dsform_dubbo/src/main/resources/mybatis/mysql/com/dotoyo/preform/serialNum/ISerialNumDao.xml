@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dotoyo.dsform.dao.inter.ISerialNumDao" >
+	<resultMap id="serialNum4Model" type="com.dotoyo.dsform.model.SerialNum">
+		<result column="ID" property="id"/>
+		<result column="COMPANY_ID" property="companyId"/>
+		<result column="PROJECT_ID" property="projectId"/>
+		<result column="PREFORM_ID" property="preformId"/>
+		<result column="CUR_VALUE" property="curValue"/>
+		<result column="SN_TYPE" property="snType"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="ONLY_INDEX" property="onlyIndex"/>
+		<result column="YEAR" property="year"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.dotoyo.dsform.model.SerialNum" >
+		insert into <if test="tableSubName !=null and tableSubName !='' ">t_f_serial_num${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_serial_num</if> (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">ID,</if><if test="companyId !=null and companyId !='' ">COMPANY_ID,</if><if test="projectId !=null and projectId !='' ">PROJECT_ID,</if><if test="preformId !=null and preformId !='' ">PREFORM_ID,</if><if test="curValue !=null and curValue !='' ">CUR_VALUE,</if><if test="snType !=null and snType !='' ">SN_TYPE,</if><if test="createDate !=null and createDate !='' ">CREATE_DATE,</if><if test="onlyIndex !=null and onlyIndex !='' ">ONLY_INDEX,</if><if test="year !=null and year !='' ">YEAR,</if></trim>)values (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">#{id},</if><if test="companyId !=null and companyId !='' ">#{companyId},</if><if test="projectId !=null and projectId !='' ">#{projectId},</if><if test="preformId !=null and preformId !='' ">#{preformId},</if><if test="curValue !=null and curValue !='' ">#{curValue},</if><if test="snType !=null and snType !='' ">#{snType},</if><if test="createDate !=null and createDate !='' ">#{createDate},</if><if test="onlyIndex !=null and onlyIndex !='' ">#{onlyIndex},</if><if test="year !=null and year !='' ">#{year},</if></trim>)
+	</insert>
+	
+	<update id="update" parameterType="com.dotoyo.dsform.model.SerialNum" >
+		update <if test="tableSubName !=null and tableSubName !='' ">t_f_serial_num${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_serial_num</if> set <trim suffix="" suffixOverrides=",">CUR_VALUE=#{curValue},<if test="year !=null and year !='' ">YEAR=#{year},</if></trim> where ID=#{id}
+	</update>
+	
+	<select id="selectById4Lock" resultMap="serialNum4Model" parameterType="hashMap" >
+		select ID,COMPANY_ID,PROJECT_ID,PREFORM_ID,CUR_VALUE,SN_TYPE,CREATE_DATE,YEAR from <if test="tableSubName !=null and tableSubName !='' ">t_f_serial_num${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_serial_num</if> where ID=#{id} for update
+	</select>
+
+	<select id="selectById" resultMap="serialNum4Model" parameterType="hashMap" >
+		select ID,COMPANY_ID,PROJECT_ID,PREFORM_ID,CUR_VALUE,SN_TYPE,CREATE_DATE,YEAR from <if test="tableSubName !=null and tableSubName !='' ">t_f_serial_num${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_serial_num</if> where ID=#{id}
+	</select>
+	
+	<select id="selectByMap" resultMap="serialNum4Model" parameterType="hashMap" >
+		select ID,COMPANY_ID,PROJECT_ID,PREFORM_ID,CUR_VALUE,SN_TYPE,CREATE_DATE,YEAR from <if test="tableSubName !=null and tableSubName !='' ">t_f_serial_num${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_serial_num</if> <trim prefix="WHERE" prefixOverrides="AND "> <if test="id!=null and id!=''">AND ID=#{id}</if><if test="companyId!=null and companyId!=''">AND COMPANY_ID=#{companyId}</if><if test="projectId!=null and projectId!='' ">AND PROJECT_ID=#{projectId}</if><if test="preformId!=null and preformId!=''">AND PREFORM_ID=#{preformId}</if><if test="onlyIndex!=null and onlyIndex!=''">AND ONLY_INDEX=#{onlyIndex}</if></trim>
+	</select>
+</mapper>

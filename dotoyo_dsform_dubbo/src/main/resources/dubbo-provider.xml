@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans        
+    http://www.springframework.org/schema/beans/spring-beans.xsd        
+    http://code.alibabatech.com/schema/dubbo        
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+ 
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="hel-world-app"  />
+ 
+ 	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://192.168.1.25:2181" />
+ 
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20889" /> 
+    
+    <!-- 接口的位置 --> <!-- 实现bean，客户端应用的bean就以这个id名称为主 --> 
+	<dubbo:service group="form" interface="com.dotoyo.dsform.interf.IFormTmplService" ref="formFormTmplService_form" executes="10" />	
+	<bean id="formFormTmplService_form" class="com.dotoyo.dsform.service.FormTmplService" />
+	
+	<dubbo:service group="form" interface="com.dotoyo.dsform.interf.ITfPreformService" ref="formTfPreformService_form" executes="10" />	
+	<bean id="formTfPreformService_form" name="com.dotoyo.dsform.service.TfPreformService"
+		class="com.dotoyo.dsform.service.TfPreformService" scope="singleton">
+		<property name="dao" ref="com.dotoyo.dsform.dao.inter.ITfPreformDao"></property>
+	</bean>
+	
+	
+	<dubbo:service group="form" interface="com.dotoyo.dsform.interf.ITfFrameMessageService" ref="formTfFrameMessageService_form" executes="10" />	
+	<bean id="formTfFrameMessageService_form" class="com.dotoyo.dsform.service.TfFrameMessageService" />
+	
+	<dubbo:service group="form" interface="com.dotoyo.dsform.interf.IFormInstanceService" ref="formFormInstanceService_form" executes="10" />	
+	<bean id="formFormInstanceService_form" class="com.dotoyo.dsform.service.FormInstanceService" />               
+	  
+	<dubbo:service group="form" interface="com.dotoyo.dsform.interf.ITestService" ref="formTestService_form" executes="10" />	
+	<bean id="formTestService_form" class="com.dotoyo.dsform.test.TestService" />  
+	  
+</beans>

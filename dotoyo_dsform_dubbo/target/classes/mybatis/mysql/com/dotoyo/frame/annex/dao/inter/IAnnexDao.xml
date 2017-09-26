@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dotoyo.dsform.dao.inter.IAnnexDao" >
+<cache type="${caseImpl}" eviction="LRU" flushInterval="60000" size="1024" readOnly="true"></cache>
+<!--annex{{{{-->
+	 <select id="query" resultType="hashMap" parameterType="hashMap" resultSetType="FORWARD_ONLY"  statementType="PREPARED" timeout="20000" fetchSize="50">
+		SELECT ID,CODE,NAME,PATH,BUSI_ID,STATE,CREATE_TIME,THIS_TYPE FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if>
+		<trim prefix="WHERE" prefixOverrides="AND "><if test="id!=null and id!=''">AND ID=#{id}</if><if test="code!=null and code!=''">AND CODE=#{code}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="path!=null and path!=''">AND PATH=#{path}</if><if test="busiId!=null and busiId!=''">AND BUSI_ID=#{busiId}</if><if test="state!=null and state!=''">AND STATE=#{state}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if></trim>
+		<if test="SORT != null and SORT !='' ">ORDER BY ${SORT} ${ORDER}</if>
+		LIMIT  ${START},${SIZE};
+	</select>
+	 <select id="queryCount" resultType="long" parameterType="hashMap" resultSetType="FORWARD_ONLY"  statementType="PREPARED" timeout="20000" >
+		SELECT COUNT(1) FROM <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if>
+		<trim prefix="WHERE" prefixOverrides="AND "><if test="id!=null and id!=''">AND ID=#{id}</if><if test="code!=null and code!=''">AND CODE=#{code}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="path!=null and path!=''">AND PATH=#{path}</if><if test="busiId!=null and busiId!=''">AND BUSI_ID=#{busiId}</if><if test="state!=null and state!=''">AND STATE=#{state}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if></trim>
+	</select>
+	 <select id="selectList" resultMap="AnnexModel4Model" parameterType="hashMap" >
+		select ID,CODE,NAME,PATH,BUSI_ID,STATE,CREATE_TIME,THIS_TYPE from <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> 
+		<trim prefix="WHERE" prefixOverrides="AND "> <if test="id!=null and id!=''">AND ID=#{id}</if><if test="code!=null and code!=''">AND CODE=#{code}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="path!=null and path!=''">AND PATH=#{path}</if><if test="busiId!=null and busiId!=''">AND BUSI_ID=#{busiId}</if><if test="state!=null and state!=''">AND STATE=#{state}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if></trim>
+		<if test="SORT != null and SORT !='' ">ORDER BY ${SORT} ${ORDER}</if>
+		LIMIT  ${START},${SIZE};
+	</select>
+<!--annex}}}}-->
+<!--annex[[[[-->
+	<resultMap id="AnnexModel4Model" type="com.dotoyo.dsform.model.AnnexModel">
+		<result column="ID" property="id"/>
+		<result column="CODE" property="code"/>
+		<result column="NAME" property="name"/>
+		<result column="PATH" property="path"/>
+		<result column="BUSI_ID" property="busiId"/>
+		<result column="STATE" property="state"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="THIS_TYPE" property="thisType"/>
+	</resultMap>
+	<resultMap id="AnnexModel4Map" type="java.util.HashMap">
+		<result column="ID" property="id"/>
+		<result column="CODE" property="code"/>
+		<result column="NAME" property="name"/>
+		<result column="PATH" property="path"/>
+		<result column="BUSI_ID" property="busiId"/>
+		<result column="STATE" property="state"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="THIS_TYPE" property="thisType"/>
+	</resultMap>
+	<insert id="insert" parameterType="com.dotoyo.dsform.model.AnnexModel" >
+		insert into <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">ID,</if><if test="code !=null and code !='' ">CODE,</if><if test="name !=null and name !='' ">NAME,</if><if test="path !=null and path !='' ">PATH,</if><if test="busiId !=null and busiId !='' ">BUSI_ID,</if><if test="state !=null and state !='' ">STATE,</if><if test="createTime !=null and createTime !='' ">CREATE_TIME,</if><if test="thisType !=null and thisType !='' ">THIS_TYPE,</if></trim>)values (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">#{id},</if><if test="code !=null and code !='' ">#{code},</if><if test="name !=null and name !='' ">#{name},</if><if test="path !=null and path !='' ">#{path},</if><if test="busiId !=null and busiId !='' ">#{busiId},</if><if test="state !=null and state !='' ">#{state},</if><if test="createTime !=null and createTime !='' ">#{createTime},</if><if test="thisType !=null and thisType !='' ">#{thisType},</if></trim>)
+	</insert>
+	<insert id="insert4Map" parameterType="hashMap" >
+		insert into <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">ID,</if><if test="code !=null and code !='' ">CODE,</if><if test="name !=null and name !='' ">NAME,</if><if test="path !=null and path !='' ">PATH,</if><if test="busiId !=null and busiId !='' ">BUSI_ID,</if><if test="state !=null and state !='' ">STATE,</if><if test="createTime !=null and createTime !='' ">CREATE_TIME,</if><if test="thisType !=null and thisType !='' ">THIS_TYPE,</if></trim>)values (<trim suffix="" suffixOverrides=","><if test="id !=null and id !='' ">#{id},</if><if test="code !=null and code !='' ">#{code},</if><if test="name !=null and name !='' ">#{name},</if><if test="path !=null and path !='' ">#{path},</if><if test="busiId !=null and busiId !='' ">#{busiId},</if><if test="state !=null and state !='' ">#{state},</if><if test="createTime !=null and createTime !='' ">#{createTime},</if><if test="thisType !=null and thisType !='' ">#{thisType},</if></trim>)
+	</insert>
+	<delete id="deleteByPrimaryKey" parameterType="com.dotoyo.dsform.model.AnnexModel" >
+		delete from <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> where ID=#{id}
+	</delete>
+	<delete id="delete" parameterType="com.dotoyo.dsform.model.AnnexModel" >
+		delete from <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> <trim prefix="WHERE" prefixOverrides="AND "><if test="id!=null and id!=''">AND ID=#{id}</if><if test="code!=null and code!=''">AND CODE=#{code}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="path!=null and path!=''">AND PATH=#{path}</if><if test="busiId!=null and busiId!=''">AND BUSI_ID=#{busiId}</if><if test="state!=null and state!=''">AND STATE=#{state}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if></trim>
+	</delete>
+	<update id="updateByPrimaryKey" parameterType="com.dotoyo.dsform.model.AnnexModel" >
+		update <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> set <trim suffix="" suffixOverrides=","><if test="code !=null and code !='' ">CODE=#{code},</if><if test="name !=null and name !='' ">NAME=#{name},</if><if test="path !=null and path !='' ">PATH=#{path},</if><if test="busiId !=null and busiId !='' ">BUSI_ID=#{busiId},</if><if test="state !=null and state !='' ">STATE=#{state},</if><if test="createTime !=null and createTime !='' ">CREATE_TIME=#{createTime},</if><if test="thisType !=null and thisType !='' ">THIS_TYPE=#{thisType},</if> </trim> where ID=#{id}
+	</update>
+	<update id="updateByPrimaryKey4Map" parameterType="hashMap" >
+		update <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> set <trim suffix="" suffixOverrides=","><if test="code !=null and code !='' ">CODE=#{code},</if><if test="name !=null and name !='' ">NAME=#{name},</if><if test="path !=null and path !='' ">PATH=#{path},</if><if test="busiId !=null and busiId !='' ">BUSI_ID=#{busiId},</if><if test="state !=null and state !='' ">STATE=#{state},</if><if test="createTime !=null and createTime !='' ">CREATE_TIME=#{createTime},</if><if test="thisType !=null and thisType !='' ">THIS_TYPE=#{thisType},</if> </trim> where ID=#{id}
+	</update>
+	 <select id="selectList4Map" resultMap="AnnexModel4Map" parameterType="hashMap" >
+		select ID,CODE,NAME,PATH,BUSI_ID,STATE,CREATE_TIME,THIS_TYPE from <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> <trim prefix="WHERE" prefixOverrides="AND "> <if test="id!=null and id!=''">AND ID=#{id}</if><if test="code!=null and code!=''">AND CODE=#{code}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="path!=null and path!=''">AND PATH=#{path}</if><if test="busiId!=null and busiId!=''">AND BUSI_ID=#{busiId}</if><if test="state!=null and state!=''">AND STATE=#{state}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if></trim>
+	</select>
+	 <select id="selectByPrimaryKey" resultMap="AnnexModel4Model" parameterType="com.dotoyo.dsform.model.AnnexModel" >
+		select ID,CODE,NAME,PATH,BUSI_ID,STATE,CREATE_TIME,THIS_TYPE from <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> where ID=#{id}
+	</select>
+	 <select id="selectModelList" resultMap="AnnexModel4Model" parameterType="com.dotoyo.dsform.model.AnnexModel" >
+		select ID,CODE,NAME,PATH,BUSI_ID,STATE,CREATE_TIME,THIS_TYPE from <if test="tableSubName !=null and tableSubName !='' ">t_f_annex${tableSubName}</if><if test="tableSubName ==null or tableSubName =='' ">t_f_annex</if> <trim prefix="WHERE" prefixOverrides="AND "> <if test="id!=null and id!=''">AND ID=#{id}</if><if test="code!=null and code!=''">AND CODE=#{code}</if><if test="name!=null and name!=''">AND NAME=#{name}</if><if test="path!=null and path!=''">AND PATH=#{path}</if><if test="busiId!=null and busiId!=''">AND BUSI_ID=#{busiId}</if><if test="state!=null and state!=''">AND STATE=#{state}</if><if test="createTime!=null and createTime!=''">AND CREATE_TIME=#{createTime}</if><if test="thisType!=null and thisType!=''">AND THIS_TYPE=#{thisType}</if></trim>
+	</select>
+<!--annex]]]]-->
+	<select id="queryInvalidAnnex" parameterType="hashMap" resultMap="AnnexModel4Map"
+            resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+            flushCache="false" statementType="PREPARED" timeout="20000">
+    
+		    select * 
+		    from t_f_annex
+		    where  time &lt;= str_to_date(#{time},'%Y-%m-%d') and busiid is null and state = 1
+			LIMIT 10000,0;
+    </select>
+    
+    <select id="queryDelAnnex" parameterType="hashMap" resultMap="AnnexModel4Map"
+            resultType="hashMap" useCache="true" resultSetType="FORWARD_ONLY"
+            flushCache="false" statementType="PREPARED" timeout="20000">
+	
+	
+		    select * 
+			from t_f_annex
+			where  state = 0
+		  LIMIT 10000,0;
+    </select>
+</mapper>

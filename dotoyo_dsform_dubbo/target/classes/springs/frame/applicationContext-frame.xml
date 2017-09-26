@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-autowire="byName"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 
+	<bean id="com.dotoyo.dsform.service.TfPreformService" name="com.dotoyo.dsform.service.TfPreformService"
+		class="com.dotoyo.dsform.service.TfPreformService" scope="singleton">
+		<property name="dao" ref="com.dotoyo.ims.dsform.allin.ITfPreformDao"></property>
+	</bean>
+	 -->
+
+
+	<bean id="com.dotoyo.dsform.dao.inter.ITfPreformDao" name="com.dotoyo.dsform.dao.inter.ITfPreformDao"
+		class="com.dotoyo.dsform.datasource.MybatisMapperBean" scope="singleton">
+		<property name="mapperInterface" value="com.dotoyo.dsform.dao.inter.ITfPreformDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="com.dotoyo.dsform.service.inter.IAnnexSv" name="com.dotoyo.dsform.service.IAnnexSv"
+		class="com.dotoyo.dsform.service.AnnexSv" scope="singleton">
+	</bean>
+	
+	<bean id="com.dotoyo.dsform.dao.inter.IAnnexDao" name="com.dotoyo.dsform.dao.inter.IAnnexDao"
+          class="com.dotoyo.dsform.datasource.MybatisMapperBean" scope="singleton">
+          <property name="mapperInterface" value="com.dotoyo.dsform.dao.inter.IAnnexDao"></property>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	
+	<bean id="frame.formSv" name="frame.formSv"
+		class="com.dotoyo.dsform.service.FormSv" scope="singleton">
+		<property name="dao" ref="frame.formDao"></property>
+		<property name="modelDao" ref="frame.formModelDao"></property>
+	</bean>
+	<bean id="frame.formModelDao" name="frame.formModelDao"
+		class="com.dotoyo.dsform.datasource.MybatisMapperBean"
+		scope="singleton">
+		<property name="mapperInterface"
+			value="com.dotoyo.dsform.dao.inter.IFormModelDao">
+		</property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<bean id="frame.formDao" name="frame.formDao"
+		class="com.dotoyo.dsform.datasource.MybatisMapperBean"
+		scope="singleton">
+		<property name="mapperInterface"
+			value="com.dotoyo.dsform.dao.inter.IFormDao">
+		</property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<bean id="frame.keyValueDao" name="frame.keyValueDao"
+		class="com.dotoyo.dsform.datasource.MybatisMapperBean"
+		scope="singleton">
+		<property name="mapperInterface"
+			value="com.dotoyo.dsform.dao.inter.IKeyValueDao">
+		</property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<bean id="com.dotoyo.dsform.dao.inter.ISerialNumDao"
+		name="com.dotoyo.dsform.dao.inter.ISerialNumDao"
+		class="com.dotoyo.dsform.datasource.MybatisMapperBean"
+		scope="singleton">
+		<property name="mapperInterface"
+			value="com.dotoyo.dsform.dao.inter.ISerialNumDao">
+		</property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	
+	<bean id="frame.keyValueSv"
+		class="com.dotoyo.dsform.frame.KeyValueSv">
+		<property name="dao" ref="frame.keyValueDao"></property>
+	</bean>
+	
+	
+	<bean id="com.dotoyo.dsform.service.inter.ISerialNumService"
+		class="com.dotoyo.dsform.service.SerialNumService">
+	</bean>
+</beans>
+
+

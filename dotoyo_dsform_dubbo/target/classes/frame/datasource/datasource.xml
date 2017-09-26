@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<datasource>
+<!-- 
+	<db code="test">
+		<dbType>oracle</dbType>
+		<encrypt note="是否加密">false</encrypt>
+		<jndiName>java:comp/env/jdbc/test4</jndiName>
+		<driver>oracle.jdbc.driver.OracleDriver</driver>
+		<user>ds</user>
+		<passwd>ds</passwd>
+		<jdbcUrl>jdbc:oracle:thin:@127.0.0.1:1521:xsh</jdbcUrl>
+		<initialPoolSize>50</initialPoolSize>
+
+		<minPoolSize>50</minPoolSize>
+		<maxPoolSize>60</maxPoolSize>
+		<maxStatements>100</maxStatements>
+		<maxIdleTime>
+			60
+		</maxIdleTime>
+	</db>
+ -->
+ 
+ 	
+	<db code="test">
+		<dbType>mysql</dbType>
+		<encrypt note="是否加密">false</encrypt>
+		<jndiName>java:comp/env/jdbc/test4</jndiName>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<user>dty_ims_db</user>
+		<passwd>dty_ims_db_71_pwd</passwd>
+		<jdbcUrl>jdbc:mysql://192.168.1.24:3306/ds?useUnicode=true&amp;characterEncoding=UTF-8</jdbcUrl>
+		<initialPoolSize>50</initialPoolSize>
+
+		<minPoolSize>50</minPoolSize>
+		<maxPoolSize>60</maxPoolSize>
+		<maxStatements>100</maxStatements>
+		<maxIdleTime>
+			60
+		</maxIdleTime>
+	</db> 
+	
+	
+ 	<!-- <db code="test">
+		<dbType>mysql</dbType>
+		<encrypt note="是否加密">false</encrypt>
+		<jndiName>java:comp/env/jdbc/test4</jndiName>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<user>dotayo_db</user>
+		<passwd>dotayo_db</passwd>
+		<jdbcUrl>jdbc:mysql://192.168.1.24:3306/dty_ims_db?useUnicode=true&amp;characterEncoding=UTF-8</jdbcUrl>
+		<initialPoolSize>50</initialPoolSize>
+
+		<minPoolSize>50</minPoolSize>
+		<maxPoolSize>60</maxPoolSize>
+		<maxStatements>100</maxStatements>
+		<maxIdleTime>
+			60
+		</maxIdleTime>
+	</db> -->
+	
+</datasource>
